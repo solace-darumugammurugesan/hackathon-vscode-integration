@@ -20,6 +20,12 @@
       "language": "tcl",
       "scopeName": "source.tcl",
       "path": "./syntaxes/Tcl (Solace).tmLanguage"
-    }]
+    }],
+    "snippets": [
+        {
+            "language": "tcl",
+            "path": "./snippets/tcl-snippets.code-snippets.json"
+        }
+    ]
   }
 }
