@@ -1,0 +1,25 @@
+{
+  "name": "tcl",
+  "displayName": "SolaceVSCodeSyntax",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "tcl",
+      "aliases": ["Tcl (Solace)", "tcl"],
+      "extensions": [".tcl"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "tcl",
+      "scopeName": "source.tcl",
+      "path": "./syntaxes/Tcl (Solace).tmLanguage"
+    }]
+  }
+}
