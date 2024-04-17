@@ -10,22 +10,34 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "tcl",
-      "aliases": ["Tcl (Solace)", "tcl"],
-      "extensions": [".tcl"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "tcl",
-      "scopeName": "source.tcl",
-      "path": "./syntaxes/Tcl (Solace).tmLanguage"
-    }],
+    "languages": [
+      {
+        "id": "tcl",
+        "aliases": [
+          "Tcl (Solace)",
+          "tcl"
+        ],
+        "extensions": [
+          ".tcl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "tcl",
+        "scopeName": "source.tcl",
+        "path": "./syntaxes/Tcl (Solace).tmLanguage"
+      }
+    ],
     "snippets": [
-        {
-            "language": "tcl",
-            "path": "./snippets/tcl-snippets.code-snippets.json"
-        }
+      {
+        "language": "tcl",
+        "path": "./snippets/tcl-snippets.code-snippets.json"
+      }
     ]
+  },
+  "dependencies": {
+    "vsce": "^2.15.0"
   }
 }

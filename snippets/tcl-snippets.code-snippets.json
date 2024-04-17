@@ -62,13 +62,13 @@
         ],
         "description": "While Loop"
     },
-    "catch": {
-        "prefix": "catch",
-        "body": [
-            "catch {${1:body}} ${2:var}"
-        ],
-        "description": "Catch Block"
-    },
+    // "catch": {
+    //     "prefix": "catch",
+    //     "body": [
+    //         "catch {${1:body}} ${2:var}"
+    //     ],
+    //     "description": "Catch Block"
+    // },
     "try": {
         "prefix": "try",
         "body": [
@@ -138,5 +138,134 @@
             "tk_messageBox ${-message msg}"
         ],
         "description": "Message Box"
+    },
+    "catch": {
+        "prefix": "catch",
+        "body": [
+            "catch {",
+            "\tif { [catch {",
+            "\t\t$1",
+            "} errorInfo] } {",
+            "\t\t::Log::FwLog \\",
+            "\t\t\t-level  [::LConst::LVL_ERROR] \\",
+            "\t\t\t-msg    \\$errorInfo",
+            "\t}",
+            "} ${2:var}"
+        ],
+        "description": "Catch Block"
+    },
+    "L1": {
+        "prefix": "L1",
+        "body": [
+            "########################################################################",
+            "# method ${1:name}",
+            "",
+            "# ${3:description}",
+            "#",
+            "# author ${2:author}",
+            "#",
+            "# @param  action         (in) What to do.  Valid choices are:",
+            "#                             [::Const::CFG_ADD] to add",
+            "#                          or [::Const::CFG_REMOVE] to remove",
+            "# @param  rtrObj         (in) The object reference of the router.",
+            "# @param  #REQ_PARAM#    (in) Description for required parameter.",
+            "# @param  #OPT_PARAM#    (in) Description for optional parameter.",
+            "# @param  #OPT_KEYWORD#  (in) Description for optional keyword.",
+            "# @param  mgmtPrtcl      (in) Management protocol to use for this router access.",
+            "#                             By default the current router object",
+            "#                             default management protocol is used.",
+            "# @return",
+            "proc ::L1::${1:name} {} {",
+            "\t::Log::FwMethodStart",
+            "",
+            "\t# Specify the list of args for this method",
+            "\t# Replace reqparam, optparam, optkeyword placeholders, and add as needed",
+            "\tset _argsFormatList [list -action        \"_\" \\",
+            "\t                          -rtrObj        \"_\" \\",
+            "\t                          -#REQ_PARAM#   \"_\" \\",
+            "\t                          -#OPT_PARAM#   \"\"  \\",
+            "\t                          -#OPT_KEYWORD# \"\"  \\",
+            "\t                          -mgmtPrtcl     [::Const::ITF_SEMP]]",
+            "",
+            "\t# Check the args list line",
+            "\tarray set _argsArray [::GenUtils::Check::InputArgs \\$_argsFormatList \\$args]",
+            "",
+            "\tset _mgmtPrtcl \\$_argsArray(-mgmtPrtcl)",
+            "",
+            "\t# Set \\$_noStart and \\$_noEnd with \"create\" or \"no\" tags based on action for create command",
+            "\t_CheckForNoOrCreate \\$_argsArray(-action) _noStart _noEnd _argsArray(-mgmtPrtcl)",
+            "\t# OR",
+            "\t# Set \\$_noStart and \\$_noEnd with nothing or \"no\" tags based on action for non-create command",
+            "\t_CheckForNo \\$_argsArray(-action) _noStart _noEnd _argsArray(-mgmtPrtcl)",
+            "",
+            "\t# Make the XML for command",
+            "\tset _xmlCmdStr \"",
+            "\t    [::Const::SEMP_RPC_START_TAG]",
+            "\t        # Replace the following with actual semp command using cli-to-semp output as a reference",
+            "\t        <object>",
+            "\t            # Force tags for required parameters",
+            "\t            <name>\\$argsArray(-#REQ_PARAM#)</name>",
+            "\t            # Use helper method to insert optional keyword (i.e. <#OPT_KEYWORD#/>)",
+            "\t            [::UtilsForL1::OptKeywordXML \\$_argsArray(-#OPT_KEYWORD#)]",
+            "\t            <type>",
+            "\t                # Use \\$_noStart where applicable",
+            "\t                \\$_noStart",
+            "\t                    <property>",
+            "\t                        # Use helper method to insert optional parameter (i.e. <name>#OPT_PARAM#</name>)",
+            "\t                        [::UtilsForL1::OptParamXML param_name \\$_argsArray(-#OPT_PARAM#)]",
+            "\t                    </property>",
+            "\t                # Use \\$_noEnd where applicable",
+            "\t                \\$_noEnd",
+            "\t            </type>",
+            "\t        </object>",
+            "\t    [::Const::SEMP_RPC_END_TAG]\"",
+            "",
+            "\t# Send the command",
+            "\t[\\$::autEnvMgr_g GetIntFwApi] SetRtrCfg \\$_argsArray(-rtrObj) \\",
+            "\t                                           \\$_xmlCmdStr \\",
+            "\t                                           \\$_mgmtPrtcl",
+            "",
+            "} ;# End of ${1:name}"
+        ],
+        "description": "Method Template"
+    },
+    "Section_${1:number}_${2:testCategory}_${3:attributeNum}": {
+        "prefix": "Section_${1:number}_${2:testCategory}_${3:attributeNum}",
+        "body": [
+            "public method Section_${1:number}_${2:testCategory}_${3:attributeNum} {} {",
+            "\t::L1::Test::ActionStart \"[Section] - ${4:tcDescription}\"",
+            "",
+            "\t##### action setup #####",
+            "\t::L1::Test::Result  [::Const::LOG_RESULTS_INFO] \"##### action setup #####\"",
+            "",
+            "\t##### action test #####",
+            "\t::L1::Test::Result  [::Const::LOG_RESULTS_INFO] \"##### action test #####\"",
+            "",
+            "\t##### action cleanup #####",
+            "\t::L1::Test::Result  [::Const::LOG_RESULTS_INFO] \"##### action cleanup #####\"",
+            "",
+            "\t\t::L1::Test::ActionEnd",
+            "} ;# End of Section_${1:number}_${2:testCategory}_${3:attributeNum}"
+        ],
+        "description": "Section Test Case"
+    },
+    "Section_${1:number}_${2:name}": {
+        "prefix": "Section_${1:number}_${2:name}",
+        "body": [
+            "########################################################################",
+            "# method Section_${1:number}_${2:name}",
+            "#",
+            "# ${4:description}",
+            "#",
+            "# author ${3:author}",
+            "#",
+            "# @return",
+            "public method Section_${1:number}_${2:name} {} {",
+            "\t::Log::FwMethodStart",
+            "",
+            "",
+            "} ;# End of Section_${1:number}_${2:name}"
+        ],
+        "description": "Section"
     }
 }
