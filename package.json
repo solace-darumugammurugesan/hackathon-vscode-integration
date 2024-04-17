@@ -6,6 +6,7 @@
   "engines": {
     "vscode": "^1.88.0"
   },
+  "main": "./src/extension.js",
   "categories": [
     "Programming Languages"
   ],
@@ -36,8 +37,5 @@
         "path": "./snippets/tcl-snippets.code-snippets.json"
       }
     ]
-  },
-  "dependencies": {
-    "vsce": "^2.15.0"
   }
 }
