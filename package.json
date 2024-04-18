@@ -31,7 +31,7 @@
       {
         "language": "tcl",
         "scopeName": "source.tcl",
-        "path": "./syntaxes/Tcl (Solace).tmLanguage"
+        "path": "./syntaxes/Tcl.json"
       }
     ],
     "snippets": [
