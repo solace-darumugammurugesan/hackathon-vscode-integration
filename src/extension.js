@@ -119,7 +119,15 @@ class TclDefinitionProvider {
                 // If the file exists, find an occurence of 'word' in the file and save + return its position.
                 if (fs.existsSync(filePath)) {
                     const fileContent = fs.readFileSync(filePath, 'utf8');
-                    const regex = new RegExp(word, 'g');
+
+                    let regex;
+                    // If z is defined
+                    if (z) {
+                        regex = new RegExp(`proc ${word}`, 'g');
+                    } else {
+                        regex = new RegExp(word, 'g');
+                    }
+
                     const match = regex.exec(fileContent);
                     if (match) {
                         const line = fileContent.substring(0, match.index).split('\n').length - 1;
