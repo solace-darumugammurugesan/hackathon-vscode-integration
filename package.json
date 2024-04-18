@@ -1,8 +1,9 @@
 {
   "name": "tcl",
-  "displayName": "AFW Tcl support",
-  "description": "Syntax, snippets and class lookups for Solace QA's AFW Tcl scripts",
+  "displayName": "AFW TCL Support",
+  "description": "Syntax, Snippets, and GoTo Implementation for Solace QA's AFW scripts",
   "version": "0.1.1",
+  "publisher": "Solace QA Sustaining",
   "engines": {
     "vscode": "^1.88.0"
   },
