@@ -62,13 +62,6 @@
         ],
         "description": "While Loop"
     },
-    // "catch": {
-    //     "prefix": "catch",
-    //     "body": [
-    //         "catch {${1:body}} ${2:var}"
-    //     ],
-    //     "description": "Catch Block"
-    // },
     "try": {
         "prefix": "try",
         "body": [

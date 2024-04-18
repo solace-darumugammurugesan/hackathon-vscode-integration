@@ -26,29 +26,32 @@ class TclDefinitionProvider {
         console.log(`${parts.length}`);
 
         const filesToCheck = [];
+        const foldersToCheck = [];
 
         // If there is only 1 part, the part is the method. 
         if (parts.length === 1) {
             filesToCheck.push(`${x}.tcl`);
         }
-
         // If there are 2 parts, the first part is the namespace and the second part is the method.
         else if (parts.length === 2) {
-            filesToCheck.push(`${x}.tcl`);
+            //filesToCheck.push(`${x}.tcl`);
             filesToCheck.push(`${x}_${y}.tcl`);
-
         }
         // If there are 3 parts, the first part is the namespace, the second part is the class, and the third part is the method.
         else if (parts.length === 3) {
             filesToCheck.push(`${x}_${y}.tcl`);
             filesToCheck.push(`${x}.tcl`);
-
         }
+
+
 
         // Get current file directory and print it.
         const dir = path.dirname(document.fileName);
         console.log(dir);
 
+        // Get the current files parent directory and print it.
+        const parentDir = path.dirname(dir);
+        console.log(parentDir);
 
         // For every file in filesToCheck
         for (const file of filesToCheck) {
