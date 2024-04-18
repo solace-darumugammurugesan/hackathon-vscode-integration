@@ -1,12 +1,15 @@
 {
   "name": "tcl",
-  "displayName": "SolaceVSCodeSyntax",
-  "description": "",
-  "version": "0.0.1",
+  "displayName": "AFW Tcl support",
+  "description": "Syntax, snippets and class lookups for Solace QA's AFW Tcl scripts",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.88.0"
   },
   "main": "./src/extension.js",
+  "activationEvents": [
+    "onLanguage:tcl"
+  ],
   "categories": [
     "Programming Languages"
   ],

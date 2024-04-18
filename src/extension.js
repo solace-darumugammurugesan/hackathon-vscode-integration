@@ -123,9 +123,9 @@ class TclDefinitionProvider {
                     let regex;
                     // If z is defined
                     if (z) {
-                        regex = new RegExp(`proc ${word}`, 'g');
+                        regex = new RegExp(`proc ${word}\\s*`, 'g');
                     } else {
-                        regex = new RegExp(word, 'g');
+                        regex = new RegExp(`(proc |package provide )${word}\\s*`, 'g');
                     }
 
                     const match = regex.exec(fileContent);
